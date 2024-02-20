@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color:  rgb(70, 69, 82);
+      transition: scroll-behavior 0.5s;
+    }
+
+
+    .site-header
+    {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 700px;
+      background: #252930;
+      background: linear-gradient(80deg, rgba(36, 40, 48, 0.76) 0%, rgba(36, 40, 48, 0) 100%);
+      transform-origin: 0;
+      transform: skewY(-12deg); 
+    }
+
+    .navbar {
+      overflow: hidden;
+      background-color: #fcfcfc25;
+      position: fixed;
+      top: 0;
+      height: 50px;   
+      width: 100%;
+    }
+
+    .navbar #button {
+      float : left;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      margin: 4px;
+      transition: 0.5s;
+      cursor: pointer;
+      transition-duration: 0.4s;
+      text-decoration: none; 
+    }
+
+    .navbar #button:hover {
+      background-color: #0051ff;
+    }
+    
+    #container {
+      max-width: 800px;
+      margin: 100px auto;
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.301);
+      border-radius: 5px;
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.5);
+
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+    #uploadImagesBtn:hover, #createVideoBtn:hover {
+      background-color: #218838; 
+      color: #fff;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+      color: #fff;
+    }
+
+    #uploadImagesBtn {
+      background-color: #28a745;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+    #uploadedImagesContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      
+    }
+    
+    #createVideoContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #createVideoContainer img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+
+    #upload, #create {
+      margin-bottom: 50px;
+    }
+
+    .popup {
+      width:80%;
+      height: 60%;
+      background-color: #cfe0ff;
+      position: absolute;
+      top: 0%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.1);
+      text-align: center;
+      padding: 20px 0;
+      border-radius: 50px;
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.5);
+      visibility: hidden;
+      transition: transform 0.4s,top 0.4s;
+      overflow: auto;
+      background-image: url('../static/img/upload-image.png');
+      background-repeat: no-repeat;
+      background-size:20%;
+      background-position: center;
+      justify-content: space-between;
+      
+    }
+
+    .open-popup {
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+      top: 50%;
+     
+    }
+
+    .popup p {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .popup #popbutton {
+      background-color: #007bff;
+      box-shadow: 0 5px 5px rgba(0, 0, 0, 0.384);
+      border-radius: 5px;
+      margin-top: 25px;
+      position: absolute; 
+      top: 0;
+      left: 50%; 
+      transform: translateX(-50%);
+    }
+    #dropArea {
+      margin-top: 80px;
+      height: 400px;
+      margin-left: 50px;
+      margin-right: 50px;
+      border: 2px dashed #007bff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+     #dropArea:hover {
+      background-color: rgba(0, 123, 255, 0.1);
+    }
+    #droppedImagesContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 20px;
+      margin: 20px 50px;
+    }
+
+
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    
+</header>
+
+  <div id="navbar" class="navbar">
+    <a id="button" href="#create">Go to Create</a>
+    <a id="button" href="/templates/index.html">Logout</a>
+  </div>
+
+  <div id="container">
+    <section id="upload">
+        <img src="/static/img/upload-image.png" alt="Upload Image Icon">
+      <button class="button" id="uploadImagesBtn" onclick="openPopup()" >Upload Images </button>
+      
+      <div class="popup" id="popup">
+     
+        <div id="dropArea" onclick="document.getElementById('fileInput').click()" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)"> 
+          
+          <p>Drag and drop images here or click to upload</p>
+        </div>
+        <input type="file" id="fileInput" style="display: none;" multiple onchange="handleFiles(this.files)">
+        <div id="droppedImagesContainer"></div>
+        <button class="button" id="popbutton" onclick="closePopup()">Save</button>
+      </div>
+
+      <div id="uploadedImagesContainer">
+      </div>
+    </section>  
+
+
+    <section id="create">
+      <div id="createVideoContainer">
+          <img src="/static/img/icon-play.png" alt="Create Video Icon">
+          <a href="videopage.html">
+        <button class="button">Create Video</button>
+    </a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    let popup = document.getElementById('popup');
+
+function openPopup() {
+  popup.classList.add('open-popup');
+}
+
+function closePopup() {
+  popup.classList.remove('open-popup');
+}
+
+function dropHandler(event) {
+  event.preventDefault();
+  const files = event.dataTransfer.files;
+
+  for (const file of files) {
+    // Process each dropped file (you can upload or display them)
+    displayImage(file);
+  }
+}
+
+function dragOverHandler(event) {
+  event.preventDefault();
+}
+
+function displayImage(file) {
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    const img = document.createElement('img');
+    img.src = e.target.result;
+    document.getElementById('droppedImagesContainer').appendChild(img);
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function handleFiles(files) {
+  for (let i = 0; i < files.length; i++) {
+    let file = files[i];
+    // Process only image files.
+    if (!file.type.startsWith('image/')){ continue }
+
+    displayImage(file);
+  }
+}
+
+  </script>
+</body>
+</html>

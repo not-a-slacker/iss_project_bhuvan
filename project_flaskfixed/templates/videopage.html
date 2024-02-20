@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video Maker</title>
+
+    <link rel="stylesheet" href="../static/css/videopage.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/videopage.css') }}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+  </head>
+  <body>
+    <header>
+      <a href="#">
+        <img class="header-logo-image" src="../static/img/logo.svg" alt="Logo"></a>
+      <h1>Video Maker</h1>
+    </header>
+
+    <section id="photoSelection" class="section-container">
+      <h2>Select Photos</h2>
+      <div class="predefined-images">
+
+        <!-- Add predefined image thumbnails -->
+        <img src="https://source.unsplash.com/random/800x600?sig=1" alt="Random Image" class="image-thumbnail"  />
+        <img src="https://source.unsplash.com/random/800x600?sig=2" alt="Random Image" class="image-thumbnail"  />
+        <img src="https://source.unsplash.com/random/800x600?sig=3" alt="Random Image" class="image-thumbnail"  />
+        <img src="https://source.unsplash.com/random/800x600?sig=4" alt="Random Image" class="image-thumbnail"  />
+        <img src="https://source.unsplash.com/random/800x600?sig=5" alt="Random Image" class="image-thumbnail"  />
+        <img src="https://source.unsplash.com/random/800x600?sig=6" alt="Random Image" class="image-thumbnail"  />
+        
+
+      </div>
+    </section>
+
+    <section id="backgroundMusic" class="section-container">
+      <h2>Add Background Music</h2>
+     
+      <input type="file" accept="audio/*" />
+    </section>
+
+    <section id="durationSettings" class="section-container">
+      <h2>Set Duration</h2>
+      <!-- Add input elements for setting duration -->
+      <label for="duration">Duration per Image (seconds):</label>
+      <input type="number" id="duration" name="duration" min="1" value="5" />
+    </section>
+
+    <section id="effects" class="section-container">
+        <h2>Effects</h2>
+        <!-- Add select options for set effects -->
+        <label for="setEffects">Set Effects:</label>
+        <select id="setEffects">
+            <option value="effect1">Effect 1</option>
+            <option value="effect2">Effect 2</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <!-- Add select options for transition effects -->
+        <label for="transitionEffects">Transition Effects:</label>
+        <select id="transitionEffects">
+            <option value="fade">Fade</option>
+            <option value="slide">Slide</option>
+            <!-- Add more options as needed -->
+        </select>
+    </section>
+
+    <!-- <section id="preview" class="section-container">
+        <h2>Preview</h2>
+        <div class="video-controls"> -->
+            <!-- Add fast forward and rewind icons -->
+            <!-- <button id="rewind"><img src="dist/images/rewind.png" alt="Rewind"></button>
+            <video controls> -->
+                <!-- Add source elements for video preview -->
+                <!-- <source src="dist/images/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <button id="fastForward"><img src="dist/images/fast-forward.png" alt="Fast Forward"></button>
+        </div>
+    </section> -->
+
+    <section id="outputSettings" class="section-container">
+      <h2>Output Settings</h2>
+      <!-- Add select options for video resolution and quality -->
+      <label for="resolution">Select Resolution:</label>
+      <select id="resolution">
+        <option value="720p">720p</option>
+        <option value="1080p">1080p</option>
+        <!-- Add more options as needed -->
+      </select>
+
+      <label for="quality">Select Quality:</label>
+      <select id="quality">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+    </section>
+
+    <!-- Add a button to trigger the video creation process -->
+    <button id="createVideo">Create Video</button>
+
+    <!-- Add your scripts at the end of the body -->
+    <script>
+      // JavaScript code for handling image selection
+      const imageThumbnails = document.querySelectorAll(".image-thumbnail");
+
+      imageThumbnails.forEach((thumbnail) => {
+        thumbnail.addEventListener("click", () => {
+          thumbnail.classList.toggle("selected");
+        });
+      });
+
+      // Additional JavaScript for Fast Forward and Rewind buttons
+        const video = document.querySelector('video');
+        const fastForwardBtn = document.getElementById('fastForward');
+        const rewindBtn = document.getElementById('rewind');
+
+        fastForwardBtn.addEventListener('click', () => {
+            video.currentTime += 5; // Adjust as needed
+        });
+
+        rewindBtn.addEventListener('click', () => {
+            video.currentTime -= 5; // Adjust as needed
+        });
+    </script>
+  </body>
+</html>
