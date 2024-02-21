@@ -187,7 +187,7 @@ def signup():
         email_user=request.form['email']
         password_user=request.form['password']
         hashed_password = hashlib.sha256(password_user.encode()).hexdigest()
-        insert_data(username_user, name_user, email_user, hashed_password)
+        insert_data(name_user, username_user, email_user, hashed_password)
         return redirect(url_for('login'))
 
 
